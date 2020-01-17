@@ -1,0 +1,5 @@
+1. struct instantiation/definition
+2. struct asset assignment
+2. file parse logic
+3. keyword assignment
+4. 
