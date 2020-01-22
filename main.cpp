@@ -5,7 +5,7 @@ using namespace std;
 
 int main() 
 {
-  string userInput, ugh, inputName ;
+  string buffer, userInput, ugh, inputName ;
   ifstream inData;
   txtRecord textRecord;
 
@@ -35,8 +35,7 @@ int main()
   {
     if(getline(inData, ugh )) //this is our linecounting logic, still need to situate it
     {
-      ++lines;
-      //  cout << ugh << "*" << endl; //how do you want to parse for last char
+      ++lines; //  cout << ugh << "*" << endl; //how do you want to parse for last char
     }
   };
   inData.close();
@@ -44,29 +43,19 @@ int main()
   inData.open(inputName);
   //parse for words!!
 
-  int wholeLen = static_cast< int >(strlen(textRecord.contents)); //we get awful sign/unsign ereror withou static cast 
-  for(int i = 0; i < wholeLen; i++) //a single traversal through the text should work
+  while(inData.good() == true && inData.peek() != EOF) 
   {
-    int wordCountIndex = 0; //figured we could have it in this scope because it's likely not used anywhere else
-    if(textRecord.contents[i] != 32) //if char != space because words exist between spaces and sentence-ending puncatuation
-    {
-      textRecord.kwIndex[wordCountIndex][i] = textRecord.contents[i]; //how are we suppoesd to prase ending punctuation
-    }
-
-    //for(int i = 0; i < wordLen; i++)
-    //{
-    //  cout << textRecord.kwIndex[wordCountIndex]
-    // }
-    // cout << textRecord.kwIndex[wordCountIndex][i];
+   inData >> buffer;
+   if(inData.good() != true) continue;
+   cout << "Word is :" << buffer << endl;
   }
+
+
+
 
   cout << "number of lines is " << lines << endl;
   cout << "total chars is " << address << endl;
   cout << "first line is x chars long " << endl;
-  //for(int i = 0; i < strlen(textRecord.contents); i++) //word count logic goes in here to separate concerns
-  //{
-  // cout << textRecord.contents[i];
-  //}
 
   inData.close();
   return 0;
