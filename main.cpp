@@ -45,13 +45,10 @@ int main()
 
   while(inData.good() == true && inData.peek() != EOF) 
   {
-   inData >> buffer;
-   if(inData.good() != true) continue;
-   cout << "Word is :" << buffer << endl;
+    inData >> buffer; //can this be done with a cstring instead
+    if(inData.good() != true) continue;
+    //cout << "Word is : " << txtRecord.contents << endl;
   }
-
-
-
 
   cout << "number of lines is " << lines << endl;
   cout << "total chars is " << address << endl;
