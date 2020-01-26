@@ -27,7 +27,7 @@ int main()
   //cin >> textRecord.userInput; //take userinput as a string
   cout << "file is " << textRecord.userInput << endl; //confirm selection
   inputName = textRecord.userInput.c_str(); //convert the input to a c string, worth checking to see if this is necesary
-  
+
   //the block below is for parsing words
   inData.open(inputName); //opening a new fileparse block for word counting
   //ideal parsing method (from stream, not from your c stringw:q
@@ -35,6 +35,7 @@ int main()
   {
     if (inData.good() != true)   //If the read fails 
     {
+      cout <<"file is bad" << endl;
       if (wip == true) //if a word is in progress
       {
         wip = false; //stop counting words
@@ -66,7 +67,7 @@ int main()
         }
         else //if wip == false aka new word!
         {
-          wip == true; //turn wip to true
+          wip = true; //turn wip on!
           write_ptr = 0; //reset word pointer bc new word
           for (int index = 0; index < max_word_ln; index++)
             word_buffer[index] = '\0'; //empty the word buffer to prepare for the new word
