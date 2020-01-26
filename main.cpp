@@ -4,81 +4,95 @@
 
 using namespace std;
 
+void handle_word(char word[]);
+
 int main() 
 {
-  string userInput, ugh, inputName ;
+  string userInput; //take raw userinput as a string to account for spaces
+  string line_as_string;  //the output for getline (getline requires an output?)
+  string inputName;
   int word_count = 0; //counts the number of words in file
+  int lines = 0; //counts lines (not perfect)
   bool wip = false;
   ifstream inData; //input stream
   txtRecord textRecord; //struct that stores userinput, kwIndex and the text as c string
   const int max_word_ln = 100;
   char word_buffer[max_word_ln]; //buffer for word being parsed
-  
-  cout << "name a file: ";
+  char char_buffer = '\0'; //starting with a blank line char bc?
+  int write_ptr = 0; //write pointer exists to make sure we don't exceed how many chars a word is
+
+  //Input
+  cout << "name a file: ";  //request filename 
   textRecord.userInput = "text.txt"; //delete before production
-  //cin >> textRecord.userInput;
-  cout << "file is " << textRecord.userInput << endl;
-
-  inputName = textRecord.userInput.c_str();
-
- // inData.open(inputName);
-  char char_buffer = '\0'; //what is this for
-  int address = 0; //whaat is this for
-  int lines = 0; //what is this for
-  //this first block below exists to extract the entire text and store it in one big c string bc it might be useful
- // while(inData.get(c)) //using a while loop bc we don't know how long the text will be
- // {
- //   textRecord.contents[address] = c; //putting it in by char to account for spaces
- //   address++; //increment index 
- // }
- // inData.close(); //is there a way to cleanly run multiple loops? this isn't the only way I know to flush this buffer
-
+  //cin >> textRecord.userInput; //take userinput as a string
+  cout << "file is " << textRecord.userInput << endl; //confirm selection
+  inputName = textRecord.userInput.c_str(); //convert the input to a c string, worth checking to see if this is necesary
 
   //the block below is for counting lines
   inData.open(inputName); //open the stream again
-  while(!inData.eof()) 
+  while(!inData.eof()) //while you haven't hit the end of the file
   {
-    if(getline(inData, ugh )) //this is our linecounting logic, still need to situate it
+    if(getline(inData, line_as_string )) //this is our linecounting logic, still need to situate it
     {
-      ++lines;
-      //cout << ugh << "*" << endl; //how do you want to parse for last char
+      ++lines; //increment line counter
     }
   };
   inData.close();
 
-  //opening a new fileparse block for word counting
-  inData.open(inputName);
+  //this block is for parsing words
+  inData.open(inputName); //opening a new fileparse block for word counting
   //ideal parsing method (from stream, not from your c stringw:q
-  while(( char_buffer = inData.get()) != EOF)
+  while(( char_buffer = inData.get()) != EOF) // .get() the filstream, assign it the name char_buffer. Stop condition is when we reach EOF
   {
-  if (inData.good() != true)   //If the read fais
-  {
-    if (wip == true)
+    if (inData.good() != true)   //If the read fails 
     {
-      wip = false;
-      word_count++;
-      //we in theory have access to the word 
+      if (wip == true) //if a word is in progress
+      {
+        wip = false; //stop counting words
+        word_count++;
+        handle_word(word_buffer);
+      }
     }
-    //read words here
+    else // if the read is good (parse content for words)
+    {
+      if (char_buffer == '\n') ++lines; //if we just read EOL, increment the line number
+      if (isspace(char_buffer) > 0 ) //if we just read whitespsace
+      {
+        if(wip == true ) //if a word was being read and we previously just read a whitespace...
+        {
+          word_count++; //that would mean we've read an entire word, increment word_count
+          wip == false; //we've finished the word, word is no longer in progress
+          handle_word(word_buffer);        
+        }
+      }
+      else //if we just read non-whitespace (like a letter or punctuation?)
+      {
+        if (wip == true) //if we're in the middle of parsing a word
+        {
+          if (write_ptr< (max_word_ln - 1))
+          {
+            word_buffer[write_ptr++] = char_buffer; //write the 
+          }
+        }
+        else //looks like we've hit a new word
+        {
+          wip == true;
+          write_ptr = 0; //reset word pointer bc new word
+          for (int index = 0; index < max_word_ln; index++)
+            word_buffer[index] = '\0'; //not 100% sure why we're resetting buffer
+          word_buffer[write_ptr++] = char_buffer;
+        }
+      }
+    } 
   }
-  if (char_buffer == ' ')
-    {
-      cout << char_buffer;
-    }
-  if (char_buffer == '\n')
-    {
-      cout << "newline" << endl;
-    }
-  cout << char_buffer;
-  }
 
-  cout << "number of lines is " << lines << endl;
-
-  //for(int i = 0; i < strlen(textRecord.contents); i++) //word count logic goes in here to separate concerns
-  //{
-  // cout << textRecord.contents[i];
-  //}
-
+  cout << setw(5) << setfill(' ') <<  "number of lines is " << lines << " "
+    << setw(5) << setfill(' ') <<  "number of words is " << " " << endl;
   return 0;
 }
 
+void handle_word(char word[])
+{
+  cout << "word is " << strlen(word) << " letters long" << endl;
+
+}
