@@ -17,7 +17,7 @@ struct txtRecord
   static const int maxLen = 1000000;
   static const int maxWords = 100;
   char contents[maxLen]; 
-  char keywordIndex[maxWords]; //it should be an array of arrays
+  char keyword_index[maxWords]; //it should be an array of arrays
 int age, charCount;
 };
 

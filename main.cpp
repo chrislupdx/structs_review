@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void handle_word(char word[]);
+void handle_word(char word[], char kw_index[]);
 
 int main() 
 {
@@ -39,7 +39,7 @@ int main()
       {
         wip = false;                                   //stop counting words
         word_count++;                     
-        handle_word(word_buffer);                     
+        handle_word(word_buffer, textRecord.keyword_index);                     
       }
     }
     else                                               // if the read is good (parse content for words)
@@ -51,7 +51,7 @@ int main()
         {
           word_count++;                                //that would mean we've read the start of a word, increment word_count
           wip = false;                                 //a word has been located
-          handle_word(word_buffer);                    //flashing 
+          handle_word(word_buffer, textRecord.keyword_index);                    //flashing 
         } 
       }
       else                                             //if we just read non-whitespace (like a letter or punctuation?)
@@ -81,7 +81,7 @@ int main()
   return 0;
 }
 
-void handle_word(char word[])
+void handle_word(char word[], char kw_index[])
 {
 int wordLen = strlen(word);
   for ( int i = 0; i < wordLen; i++)
