@@ -49,9 +49,9 @@ int main()
       {
         if(wip == true )                               //if a word was being read and we previously just read  whitespace
         {
-          word_count++;                                //that would mean we've read an entire word, increment word_count
-          wip = false;                                //a word has been located
-          handle_word(word_buffer);        
+          word_count++;                                //that would mean we've read the start of a word, increment word_count
+          wip = false;                                 //a word has been located
+          handle_word(word_buffer);                    //flashing 
         } 
       }
       else                                             //if we just read non-whitespace (like a letter or punctuation?)
@@ -83,8 +83,11 @@ int main()
 
 void handle_word(char word[])
 {
-  for (int i = 0; i < strlen(word); i++)
+int wordLen = strlen(word);
+  for ( int i = 0; i < wordLen; i++)
   {
     cout << word[i];
   }
-}
+  cout << endl;
+  //cout << strlen(word) << endl; // proof that it's coming in by the word.
+} 
