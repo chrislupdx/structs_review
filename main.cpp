@@ -27,19 +27,8 @@ int main()
   //cin >> textRecord.userInput; //take userinput as a string
   cout << "file is " << textRecord.userInput << endl; //confirm selection
   inputName = textRecord.userInput.c_str(); //convert the input to a c string, worth checking to see if this is necesary
-
-  //the block below is for counting lines
-  inData.open(inputName); //open the stream again
-  while(!inData.eof()) //while you haven't hit the end of the file
-  {
-    if(getline(inData, line_as_string )) //this is our linecounting logic, still need to situate it
-    {
-      ++lines; //increment line counter
-    }
-  };
-  inData.close();
-
-  //this block is for parsing words
+  
+  //the block below is for parsing words
   inData.open(inputName); //opening a new fileparse block for word counting
   //ideal parsing method (from stream, not from your c stringw:q
   while(( char_buffer = inData.get()) != EOF) // .get() the filstream, assign it the name char_buffer. Stop condition is when we reach EOF
@@ -58,41 +47,43 @@ int main()
       if (char_buffer == '\n') ++lines; //if we just read EOL, increment the line number
       if (isspace(char_buffer) > 0 ) //if we just read whitespsace
       {
-        if(wip == true ) //if a word was being read and we previously just read a whitespace...
+        if(wip == true ) //if a word was being read and we previously just read  whitespace
         {
           word_count++; //that would mean we've read an entire word, increment word_count
           wip == false; //we've finished the word, word is no longer in progress
           handle_word(word_buffer);        
-        }
+        } 
+        //?? what if wip is false
       }
       else //if we just read non-whitespace (like a letter or punctuation?)
       {
         if (wip == true) //if we're in the middle of parsing a word
         {
-          if (write_ptr< (max_word_ln - 1))
+          if (write_ptr < (max_word_ln - 1)) //and we haven't exceeded the character limit for word
           {
-            word_buffer[write_ptr++] = char_buffer; //write the 
+            word_buffer[write_ptr++] = char_buffer; //keep adding letters to the character buffer
           }
         }
-        else //looks like we've hit a new word
+        else //if wip == false aka new word!
         {
-          wip == true;
+          wip == true; //turn wip to true
           write_ptr = 0; //reset word pointer bc new word
           for (int index = 0; index < max_word_ln; index++)
-            word_buffer[index] = '\0'; //not 100% sure why we're resetting buffer
-          word_buffer[write_ptr++] = char_buffer;
+            word_buffer[index] = '\0'; //empty the word buffer to prepare for the new word
+          word_buffer[write_ptr++] = char_buffer; //write the new word to the word buffer
         }
       }
     } 
   }
+  inData.close();
 
   cout << setw(5) << setfill(' ') <<  "number of lines is " << lines << " "
-    << setw(5) << setfill(' ') <<  "number of words is " << " " << endl;
+    << setw(5) << setfill(' ') <<  "number of words is " << word_count << endl;
   return 0;
 }
 
 void handle_word(char word[])
 {
-  cout << "word is " << strlen(word) << " letters long" << endl;
-
+  for(int i = 0; i < 100; i++)
+    cout << word[i];
 }
