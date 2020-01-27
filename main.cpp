@@ -3,8 +3,9 @@
 #include "main.h"
 
 using namespace std;
+const int max_word_len = 100; //this is to clear prototype declaration
 
-void handle_word(char word[], char kw_index[]);
+void handle_word(char word[], char kw_index[][max_word_len]);
 
 int main() 
 {
@@ -81,13 +82,15 @@ int main()
   return 0;
 }
 
-void handle_word(char word[], char kw_index[])
+void handle_word(char word[], char kw_index[][max_word_len])
 {
-int wordLen = strlen(word);
-  for ( int i = 0; i < wordLen; i++)
+//we need something to keep track of kw_index position
+
+  int wordLen = strlen(word);  
+  for ( int i = 0; i < wordLen; i++)                   //for the length of the incoming word, put that many chars into the struct
   {
-    cout << word[i];
+   cout << word[i];
   }
-  cout << endl;
-  //cout << strlen(word) << endl; // proof that it's coming in by the word.
+cout << endl;
+
 } 
