@@ -90,48 +90,23 @@ void handle_word(char word[], char kw_index[][max_word_len]) //i'm thinking this
   bool add = true;                   
   int wordLen = strlen(word);    
   //compare word with letter by letter
-
-  //for ( int i = 0; i < wordLen; i++)                   //go through letter by letter and check for redundancies            
-  //{
-  //  if(word[i] == kw_index[kw_index_pos][i])           //if the first letter matches
-  //  {
-   //   if(word[i++] == kw_index[kw_index_pos][i++])     //check if the next letter matches
-   //   {
-        //check the nexts letter until we reach a failure? (does negatory search reduce work here)
-  //    }
-  //  }
-  //  else                                               //check the next word's 1st char matches
- //   {
-  //    if(word[i] == kw_index[kw_index_pos++][i])       //if the 1st char of the word matches the next word's 1st char
-  //    {
-        //check if the next char does too
-  //    }
-  //    else                                             //if there is no match, check the next word
-   //   {
-    //    if(word[i] == kw_index[kw_index_pos++][i])
-     //   {
-
-     //   }
-    //  }
-  //  }
-  
-  //strcmp will traverse through your c string to get what you're looking for 
   if(strcmp(word, kw_index[kw_index_pos]) == 0)        //if the word matches the first one
   {
     //figure out it's line number
   }
   else
   {
+    // cout << "1st strcmp failed :)" << endl;
     if(strcmp(word, kw_index[kw_index_pos++]) == 0) //if the word matches the next word
     {
-    //figure out its line number
+      //figure out its line number
     }
+    while()
+      do
+      {
+        //comparison 
+      };
+
   }
-
-
-while(c_buffer = word.get() != EOF)
-{
-  cout << c_buffer;
-}
 
 } 

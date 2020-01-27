@@ -5,7 +5,7 @@ Configured with: ../gcc-7.2.0/configure --prefix=/usr/local/gcc-7.2.0
 Thread model: posix
 gcc version 7.2.0 (GCC) 
 COLLECT_GCC_OPTIONS='-v' '-c' '-g' '-std=c++11' '-Wall' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/7.2.0/cc1plus -quiet -v -D_GNU_SOURCE main.cpp -quiet -dumpbase main.cpp -mtune=generic -march=x86-64 -auxbase main -g -Wall -std=c++11 -version -o /tmp/cc7nRInH.s
+ /usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/7.2.0/cc1plus -quiet -v -D_GNU_SOURCE main.cpp -quiet -dumpbase main.cpp -mtune=generic -march=x86-64 -auxbase main -g -Wall -std=c++11 -version -o /tmp/ccjCGD9i.s
 GNU C++11 (GCC) version 7.2.0 (x86_64-pc-linux-gnu)
 	compiled by GNU C version 7.2.0, GMP version 6.0.0, MPFR version 3.1.2, MPC version 1.0.2, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -26,15 +26,18 @@ GNU C++11 (GCC) version 7.2.0 (x86_64-pc-linux-gnu)
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 Compiler executable checksum: d926a5fd199708005aec3c20f44dab6a
 main.cpp: In function ‘void handle_word(char*, char (*)[100])’:
-main.cpp:120:23: error: request for member ‘get’ in ‘word’, which is of non-class type ‘char*’
- while(c_buffer = word.get() != EOF)
-                       ^~~
-main.cpp:89:7: warning: unused variable ‘kw_index_pos’ [-Wunused-variable]
-   int kw_index_pos = 0; //for going through the word list
-       ^~~~~~~~~~~~
+main.cpp:88:8: warning: unused variable ‘c_buffer’ [-Wunused-variable]
+   char c_buffer = '\0';
+        ^~~~~~~~
 main.cpp:90:8: warning: unused variable ‘add’ [-Wunused-variable]
    bool add = true;
         ^~~
 main.cpp:91:7: warning: unused variable ‘wordLen’ [-Wunused-variable]
    int wordLen = strlen(word);
        ^~~~~~~
+COLLECT_GCC_OPTIONS='-v' '-c' '-g' '-std=c++11' '-Wall' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ as -v --64 -o main.o /tmp/ccjCGD9i.s
+GNU assembler version 2.23.2 (x86_64-suse-linux) using BFD version (GNU Binutils; openSUSE 13.1) 2.23.2
+COMPILER_PATH=/usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/7.2.0/:/usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/7.2.0/:/usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/:/usr/local/gcc-7.2.0/lib64/gcc/x86_64-pc-linux-gnu/7.2.0/:/usr/local/gcc-7.2.0/lib64/gcc/x86_64-pc-linux-gnu/
+LIBRARY_PATH=/usr/local/gcc-7.2.0/lib64/gcc/x86_64-pc-linux-gnu/7.2.0/:/usr/local/gcc-7.2.0/lib64/gcc/x86_64-pc-linux-gnu/7.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/local/gcc-7.2.0/lib64/gcc/x86_64-pc-linux-gnu/7.2.0/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-c' '-g' '-std=c++11' '-Wall' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
