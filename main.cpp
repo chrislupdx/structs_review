@@ -3,8 +3,9 @@
 #include "main.h"
 
 using namespace std;
+const int max_word_len = 100; //this is to clear prototype declaration
 
-void handle_word(char word[]);
+void handle_word(char word[], char kw_index[][max_word_len]);
 
 int main() 
 {
@@ -39,7 +40,7 @@ int main()
       {
         wip = false;                                   //stop counting words
         word_count++;                     
-        handle_word(word_buffer);                     
+        handle_word(word_buffer, textRecord.keyword_index);                     
       }
     }
     else                                               // if the read is good (parse content for words)
@@ -51,7 +52,7 @@ int main()
         {
           word_count++;                                //that would mean we've read the start of a word, increment word_count
           wip = false;                                 //a word has been located
-          handle_word(word_buffer);                    //flashing 
+          handle_word(word_buffer, textRecord.keyword_index);                    //flashing 
         } 
       }
       else                                             //if we just read non-whitespace (like a letter or punctuation?)
@@ -81,13 +82,15 @@ int main()
   return 0;
 }
 
-void handle_word(char word[])
+void handle_word(char word[], char kw_index[][max_word_len])
 {
-int wordLen = strlen(word);
-  for ( int i = 0; i < wordLen; i++)
+//we need something to keep track of kw_index position
+
+  int wordLen = strlen(word);  
+  for ( int i = 0; i < wordLen; i++)                   //for the length of the incoming word, put that many chars into the struct
   {
-    cout << word[i];
+   cout << word[i];
   }
-  cout << endl;
-  //cout << strlen(word) << endl; // proof that it's coming in by the word.
+cout << endl;
+
 } 
