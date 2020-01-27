@@ -89,24 +89,33 @@ void handle_word(char word[], char kw_index[][max_word_len]) //i'm thinking this
   int kw_index_pos = 0; //for going through the word list
   bool add = true;                   
   int wordLen = strlen(word);    
-  //compare word with letter by letter
-  if(strcmp(word, kw_index[kw_index_pos]) == 0)        //if the word matches the first one
-  {
-    //figure out it's line number
-  }
-  else
-  {
-    // cout << "1st strcmp failed :)" << endl;
-    if(strcmp(word, kw_index[kw_index_pos++]) == 0) //if the word matches the next word
-    {
-      //figure out its line number
-    }
-    while()
-      do
-      {
-        //comparison 
-      };
 
-  }
+  while(strcmp(word, kw_index[kw_index_pos]) != 0)     //while the word fails to match
+    do
+    {
+      kw_index_pos++;                                  //go through the struct
+    };
+    //then mark the match in KW index that we got a thing
+
+
+    //compare word with letter by letter
+    if(strcmp(word, kw_index[kw_index_pos]) == 0)        //if the word matches the first one
+    {
+      //figure out it's line number
+    }
+    else
+    {
+      // cout << "1st strcmp failed :)" << endl;
+      if(strcmp(word, kw_index[kw_index_pos++]) == 0) //if the word matches the next word
+      {
+        //figure out its line number
+      }
+      while()
+        do
+        {
+          //comparison 
+        };
+
+    }
 
 } 
