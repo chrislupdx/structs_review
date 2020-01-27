@@ -21,6 +21,7 @@ int main()
   char word_buffer[max_word_ln]; //buffer for word being parsed
   char char_buffer = '\0';       //starting with a blank line char bc?
   int write_ptr = 0;             //write pointer exists to make sure we don't exceed how many chars a word is
+  //int kw_index_pos = 0;
 
   cout << "name a file: ";                             //request filename 
   textRecord.userInput = "text.txt";                   //delete before production
@@ -82,15 +83,55 @@ int main()
   return 0;
 }
 
-void handle_word(char word[], char kw_index[][max_word_len])
+void handle_word(char word[], char kw_index[][max_word_len]) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
 {
-//we need something to keep track of kw_index position
+  char c_buffer = '\0';
+  int kw_index_pos = 0; //for going through the word list
+  bool add = true;                   
+  int wordLen = strlen(word);    
+  //compare word with letter by letter
 
-  int wordLen = strlen(word);  
-  for ( int i = 0; i < wordLen; i++)                   //for the length of the incoming word, put that many chars into the struct
+  //for ( int i = 0; i < wordLen; i++)                   //go through letter by letter and check for redundancies            
+  //{
+  //  if(word[i] == kw_index[kw_index_pos][i])           //if the first letter matches
+  //  {
+   //   if(word[i++] == kw_index[kw_index_pos][i++])     //check if the next letter matches
+   //   {
+        //check the nexts letter until we reach a failure? (does negatory search reduce work here)
+  //    }
+  //  }
+  //  else                                               //check the next word's 1st char matches
+ //   {
+  //    if(word[i] == kw_index[kw_index_pos++][i])       //if the 1st char of the word matches the next word's 1st char
+  //    {
+        //check if the next char does too
+  //    }
+  //    else                                             //if there is no match, check the next word
+   //   {
+    //    if(word[i] == kw_index[kw_index_pos++][i])
+     //   {
+
+     //   }
+    //  }
+  //  }
+  
+  //strcmp will traverse through your c string to get what you're looking for 
+  if(strcmp(word, kw_index[kw_index_pos]) == 0)        //if the word matches the first one
   {
-   cout << word[i];
+    //figure out it's line number
   }
-cout << endl;
+  else
+  {
+    if(strcmp(word, kw_index[kw_index_pos++]) == 0) //if the word matches the next word
+    {
+    //figure out its line number
+    }
+  }
+
+
+while(c_buffer = word.get() != EOF)
+{
+  cout << c_buffer;
+}
 
 } 
