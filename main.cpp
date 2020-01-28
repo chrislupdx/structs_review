@@ -3,8 +3,6 @@
 #include "main.h"
 
 using namespace std;
-struct word_record;
-void handle_word(char word[], word_record[]);
 
 int main() 
 {
@@ -14,10 +12,11 @@ int main()
   int word_count = 0;            //counts the number of words in file
   int lines = 0;                 //counts lines (not perfect)
   bool wip = false;
-  ifstream inData;               //input stream
-  word_record word[max_word_len];          //struct that stores userinput, kwIndex and the text as c string
+  ifstream inData;            //input stream
+  const int max_word_num = 100;
+  word_record word[max_word_num];          //struct that stores userinput, kwIndex and the text as c string
   const int max_word_ln = 100;
-  const int max_word_number = 100;
+  //const int max_word_number = 100;
   char word_buffer[max_word_ln]; //buffer for word being parsed
   char char_buffer = '\0';       //starting with a blank line char bc?
   int write_ptr = 0;             //write pointer exists to make sure we don't exceed how many chars a word is
@@ -40,8 +39,8 @@ int main()
       if (wip == true)                                 //if a word is in progress
       {
         wip = false;                                   //stop counting words
-        word_count++;                     
-        //handle_word(word_buffer, word[max_word_number]);                     
+        word_count++;     
+        //handle_word(word_buffer, word[max_word_number]);                      
       }
     }
     else                                               // if the read is good (parse content for words)
@@ -53,7 +52,7 @@ int main()
         {
           word_count++;                                //that would mean we've read the start of a word, increment word_count
           wip = false;                                 //a word has been located
-          //handle_word(word_buffer, textRecord);                    //flashing 
+          handle_word(word_buffer, word);//word should be plural                    
         } 
       }
       else                                             //if we just read non-whitespace (like a letter or punctuation?)
@@ -83,30 +82,54 @@ int main()
   return 0;
 }
 
-void handle_word(char word[], word_record[]) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
+void handle_word(char word[], word_record word_rec[]) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
 {
-  char c_buffer = '\0';
-  int kw_index_pos = 0; //for going through the word list
-  bool add = true;                   
-  int wordLen = strlen(word);    
+  int word_num = 0;
+  //cout << word << endl;
+  int word_ln = strlen(word);
 
-  //the negative logic effectively locates stuff, but doesn't necessarily help
-  while(strcmp(word, kw_index[kw_index_pos]) != 0)     //while the word fails to match(eval at the top bc incrementing index) 
+  for(int i = 0; i < 100; i++)                         //go through the entire struct
   {
-    if(kw_index_pos == 100)                         //max number of words in struct are 100
-    {
-      //put the word in the struct, it's novel
-      break;                                       //this break to prevent segfault
-    }
-    else                       // if we still have words left
-    { //there should be no other options: we've traversed the whole struct and handled novel wordsw
-    } 
-    kw_index_pos++;                                  //go through the struct
+    if(strcmp(word, word_rec[i].word) == 0)             //if we find a match
+        {
+         cout << "match!";
+        }
+
+
   }
-  if(strcmp(word, kw_index[kw_index_pos]) == 0)   //after the while on 93 fails
-  {
+
+  //      while(strcmp(word, word_rec[word_num].word) != 0)    //while there is no match
+   //     {
+    //    if(word_num == 100)                                //if we hit the end
+     //   {
+        // for(int idx = 0; idx < word_ln; idx++)
+        // {
+        //   word_rec[word_num].word[idx] = word[idx];
+        // }
+      //  break;                                           //get out
+     //   }
+      //  word_num++;                                        //continue iterating through the struct
+      //  }
+
+    //int kw_index_pos = 0; //for going through the word list
+    //bool add = true;                   
+    //int wordLen = strlen(word);    
+
+    //while(strcmp(word, word) != 0)//the second word needs to be switched out     //while the word fails to match(eval at the top bc incrementing index) 
+    //{
+    // if(kw_index_pos == 100)                         //max number of words in struct are 100
+    // {
+    //put the word in the struct, it's novel
+    //  break;                                       //this break to prevent segfault
+    //}
+    // else                       // if we still have words left
+    // { //there should be no other options: we've traversed the whole struct and handled novel wordsw
+    // } 
+    // kw_index_pos++;                                  //go through the struct
+    // }
+    //  if(strcmp(word, word) == 0)   //after the while on 93 fails
+    //  {
     //locate the match's line number
     //put that line number into the struct
-  }
-  //what do we do if we have NEVER seen the word before?
+    // }
 } 
