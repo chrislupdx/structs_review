@@ -5,7 +5,7 @@ Configured with: ../gcc-7.2.0/configure --prefix=/usr/local/gcc-7.2.0
 Thread model: posix
 gcc version 7.2.0 (GCC) 
 COLLECT_GCC_OPTIONS='-v' '-c' '-g' '-std=c++11' '-Wall' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/7.2.0/cc1plus -quiet -v -D_GNU_SOURCE main.cpp -quiet -dumpbase main.cpp -mtune=generic -march=x86-64 -auxbase main -g -Wall -std=c++11 -version -o /tmp/ccjcuZOP.s
+ /usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/7.2.0/cc1plus -quiet -v -D_GNU_SOURCE main.cpp -quiet -dumpbase main.cpp -mtune=generic -march=x86-64 -auxbase main -g -Wall -std=c++11 -version -o /tmp/ccI0QOqB.s
 GNU C++11 (GCC) version 7.2.0 (x86_64-pc-linux-gnu)
 	compiled by GNU C version 7.2.0, GMP version 6.0.0, MPFR version 3.1.2, MPC version 1.0.2, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -25,16 +25,31 @@ GNU C++11 (GCC) version 7.2.0 (x86_64-pc-linux-gnu)
 	compiled by GNU C version 7.2.0, GMP version 6.0.0, MPFR version 3.1.2, MPC version 1.0.2, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 Compiler executable checksum: d926a5fd199708005aec3c20f44dab6a
-main.cpp: In function ‘void handle_word(char*, char (*)[100])’:
-main.cpp:104:11: error: expected primary-expression before ‘)’ token
-     while()
-           ^
-main.cpp:108:8: error: expected ‘while’ before ‘;’ token
-       };
-        ^
-main.cpp:108:8: error: expected ‘(’ before ‘;’ token
-main.cpp:108:8: error: expected primary-expression before ‘;’ token
-main.cpp:108:8: error: expected ‘)’ before ‘;’ token
+main.cpp: In function ‘int main()’:
+main.cpp:18:15: warning: unused variable ‘word’ [-Wunused-variable]
+   word_record word[max_word_len];          //struct that stores userinput, kwIndex and the text as c string
+               ^~~~
+main.cpp:20:13: warning: unused variable ‘max_word_number’ [-Wunused-variable]
+   const int max_word_number = 100;
+             ^~~~~~~~~~~~~~~
+main.cpp:21:8: warning: variable ‘word_buffer’ set but not used [-Wunused-but-set-variable]
+   char word_buffer[max_word_ln]; //buffer for word being parsed
+        ^~~~~~~~~~~
+main.cpp: In function ‘void handle_word(char*, word_record*)’:
+main.cpp:94:22: error: ‘kw_index’ was not declared in this scope
+   while(strcmp(word, kw_index[kw_index_pos]) != 0)     //while the word fails to match(eval at the top bc incrementing index)
+                      ^~~~~~~~
+main.cpp:94:22: note: suggested alternative: ‘rindex’
+   while(strcmp(word, kw_index[kw_index_pos]) != 0)     //while the word fails to match(eval at the top bc incrementing index)
+                      ^~~~~~~~
+                      rindex
+main.cpp:106:19: error: ‘kw_index’ was not declared in this scope
+   if(strcmp(word, kw_index[kw_index_pos]) == 0)   //after the while on 93 fails
+                   ^~~~~~~~
+main.cpp:106:19: note: suggested alternative: ‘rindex’
+   if(strcmp(word, kw_index[kw_index_pos]) == 0)   //after the while on 93 fails
+                   ^~~~~~~~
+                   rindex
 main.cpp:88:8: warning: unused variable ‘c_buffer’ [-Wunused-variable]
    char c_buffer = '\0';
         ^~~~~~~~

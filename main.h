@@ -11,14 +11,16 @@
 // defined constants
 //#define max_word_ln 100
 
-struct txtRecord
+static const int maxLen = 1000000;
+static const int max_word_len = 100;
+static const int max_words = 100;
+std::string userInput;
+char contents[maxLen]; 
+
+struct word_record                                       //struct arr == kwindex
 {
-  std::string userInput;
-  static const int maxLen = 1000000;
-  static const int maxWords = 100;
-  static const int max_word_len = 100;
-  char contents[maxLen]; 
-  char keyword_index[maxWords][max_word_len]; //it should be an array of arrays
+ // char keyword_index[max_words][max_word_len]; //it should be an array of arrays
 int age, charCount;
+  int lines[100]; //for storing where we find the word
 };
 
