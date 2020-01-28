@@ -41,7 +41,7 @@ int main()
       {
         wip = false;                                   //stop counting words
         word_count++;     
-        //handle_word(word_buffer, word[max_word_number]);                      
+        handle_word(word_buffer, word, size);
       }
     }
     else                                               // if the read is good (parse content for words)
@@ -78,7 +78,18 @@ int main()
   }
   inData.close();
 
-//print the struct for qa?
+  //print the struct for qa?
+  cout << "pringint struct";
+  for(int i = 0; i < 100; i++) //go through every struct
+  {
+    int wordLen = strlen(word[i].word);
+    int wordNum = 0;
+    for (int e = 0; e < wordLen; e++)
+    {
+      cout << word[i].word[e];
+    }
+    cout << " : struct # " << i << endl;
+  }
 
   cout << setw(5) << setfill(' ') <<  "number of lines is " << lines << " "
     << setw(5) << setfill(' ') <<  "number of words is " << word_count << endl;
@@ -127,7 +138,15 @@ void handle_word(char word[], word_record word_rec[], int& size) //i'm thinking 
     };
   }
 
-  //we're stuck on the predicating conditons we need to add a word into the system
-
-
-} 
+  //cout << "printing struct" << endl;
+  //for(int i = 0; i < 100; i++)    // for the # of structs
+  //{
+  //  int wordLen = strlen(word_rec[i].word);
+  //  int wordNum = 0;
+  //cout << i << endl;
+  //  for (int e = 0; e < wordLen; e++) // print the lettters
+  //  {
+  //  cout << word_rec[i].word[e];
+  //  }
+  // }
+}
