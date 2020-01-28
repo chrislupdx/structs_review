@@ -13,6 +13,7 @@ int main()
   int lines = 0;                 //counts lines (not perfect)
   bool wip = false;
   ifstream inData;            //input stream
+  int size = 0;                   //number of words processed
   const int max_word_num = 100;
   word_record word[max_word_num];          //struct that stores userinput, kwIndex and the text as c string
   const int max_word_ln = 100;
@@ -52,7 +53,7 @@ int main()
         {
           word_count++;                                //that would mean we've read the start of a word, increment word_count
           wip = false;                                 //a word has been located
-          handle_word(word_buffer, word);//word should be plural                    
+          handle_word(word_buffer, word, size);//word should be plural                    
         } 
       }
       else                                             //if we just read non-whitespace (like a letter or punctuation?)
@@ -77,59 +78,56 @@ int main()
   }
   inData.close();
 
+//print the struct for qa?
+
   cout << setw(5) << setfill(' ') <<  "number of lines is " << lines << " "
     << setw(5) << setfill(' ') <<  "number of words is " << word_count << endl;
   return 0;
 }
 
-void handle_word(char word[], word_record word_rec[]) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
+void handle_word(char word[], word_record word_rec[], int& size) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
 {
   int word_num = 0;
-  //cout << word << endl;
   int word_ln = strlen(word);
+  bool add = false;
+  int position = 0;                                    //insertion position
 
-  for(int i = 0; i < 100; i++)                         //go through the entire struct
+  cout << "Word: " << word << endl;
+  add = true;                                          //default is to add the word
+  for(position = 0; position < 100; position++)                         //go through the entire struct
   {
-    if(strcmp(word, word_rec[i].word) == 0)             //if we find a match
-        {
-         cout << "match!";
-        }
+    //avoiding duplicates
+    if(strcmp(word, word_rec[position].word) == 0)            //if we find a match
+    {
+      add = false;                                     //do not add
+      break;
+    }
 
+    //locating point of insertion
+    if(strcmp(word, word_rec[position].word) == -1)           //if word < word_rec[i].word aka we find a new word
+    {
+      add = true;
+      break;                                           //stop, we've found the right place in the struct
+    }
 
+    //make room for the word at 
+    if(size < (max_words - 1) && add == true)       //do we pass size by reference? 
+    {
+      for(int idx = size; idx > position; idx--) 
+      {
+        word_rec[idx] = word_rec[idx -1];         //open up 1 spot
+      }
+      //add the word to the struct
+      for(int idx = 0; idx < word_ln; idx++)      //copy t
+      {
+        word_rec[position].word[idx] = word[idx];
+      }
+      cout << "added " << word << endl;
+      size++;
+    };
   }
 
-  //      while(strcmp(word, word_rec[word_num].word) != 0)    //while there is no match
-   //     {
-    //    if(word_num == 100)                                //if we hit the end
-     //   {
-        // for(int idx = 0; idx < word_ln; idx++)
-        // {
-        //   word_rec[word_num].word[idx] = word[idx];
-        // }
-      //  break;                                           //get out
-     //   }
-      //  word_num++;                                        //continue iterating through the struct
-      //  }
+  //we're stuck on the predicating conditons we need to add a word into the system
 
-    //int kw_index_pos = 0; //for going through the word list
-    //bool add = true;                   
-    //int wordLen = strlen(word);    
 
-    //while(strcmp(word, word) != 0)//the second word needs to be switched out     //while the word fails to match(eval at the top bc incrementing index) 
-    //{
-    // if(kw_index_pos == 100)                         //max number of words in struct are 100
-    // {
-    //put the word in the struct, it's novel
-    //  break;                                       //this break to prevent segfault
-    //}
-    // else                       // if we still have words left
-    // { //there should be no other options: we've traversed the whole struct and handled novel wordsw
-    // } 
-    // kw_index_pos++;                                  //go through the struct
-    // }
-    //  if(strcmp(word, word) == 0)   //after the while on 93 fails
-    //  {
-    //locate the match's line number
-    //put that line number into the struct
-    // }
 } 
