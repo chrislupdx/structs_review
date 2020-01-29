@@ -14,8 +14,8 @@ int main()
   bool wip = false;
   ifstream inData;            //input stream
   int size = 0;                   //number of words processed
-  const int max_word_num = 100;
-  word_record word[max_word_num];          //struct that stores userinput, kwIndex and the text as c string
+  //const int max_word_num = 100;
+  word_record word_rec;          //struct that stores userinput, kwIndex and the text as c string
   const int max_word_ln = 100;
   //const int max_word_number = 100;
   char word_buffer[max_word_ln]; //buffer for word being parsed
@@ -41,7 +41,7 @@ int main()
       {
         wip = false;                                   //stop counting words
         word_count++;     
-        handle_word(word_buffer, word, size);
+        handle_word(word_buffer, word_rec, size);
       }
     }
     else                                               // if the read is good (parse content for words)
@@ -53,7 +53,7 @@ int main()
         {
           word_count++;                                //that would mean we've read the start of a word, increment word_count
           wip = false;                                 //a word has been located
-          handle_word(word_buffer, word, size);//word should be plural                    
+          //handle_word(word_buffer, word_rec, size);//word should be plural                    
         } 
       }
       else                                             //if we just read non-whitespace (like a letter or punctuation?)
@@ -82,8 +82,8 @@ int main()
   cout << "pringint struct";
   for(int i = 0; i < 100; i++) //go through every struct
   {
-    int wordLen = strlen(word[i].word);
-    int wordNum = 0;
+    int wordLen = strlen(word_rec[i].word);
+    //int wordNum = 0;
     for (int e = 0; e < wordLen; e++)
     {
       cout << word[i].word[e];
@@ -96,7 +96,7 @@ int main()
   return 0;
 }
 
-void handle_word(char word[], word_record word_rec[], int& size) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
+void handle_word(char word[], struct& word_rec[], int& size) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
 {
   int word_num = 0;
   int word_ln = strlen(word);
@@ -137,16 +137,5 @@ void handle_word(char word[], word_record word_rec[], int& size) //i'm thinking 
       size++;
     };
   }
-
-  //cout << "printing struct" << endl;
-  //for(int i = 0; i < 100; i++)    // for the # of structs
-  //{
-  //  int wordLen = strlen(word_rec[i].word);
-  //  int wordNum = 0;
-  //cout << i << endl;
-  //  for (int e = 0; e < wordLen; e++) // print the lettters
-  //  {
-  //  cout << word_rec[i].word[e];
-  //  }
-  // }
+  return word;
 }

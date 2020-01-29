@@ -5,7 +5,7 @@ Configured with: ../gcc-7.2.0/configure --prefix=/usr/local/gcc-7.2.0
 Thread model: posix
 gcc version 7.2.0 (GCC) 
 COLLECT_GCC_OPTIONS='-v' '-c' '-g' '-std=c++11' '-Wall' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/7.2.0/cc1plus -quiet -v -D_GNU_SOURCE main.cpp -quiet -dumpbase main.cpp -mtune=generic -march=x86-64 -auxbase main -g -Wall -std=c++11 -version -o /tmp/cc1eqaeE.s
+ /usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/7.2.0/cc1plus -quiet -v -D_GNU_SOURCE main.cpp -quiet -dumpbase main.cpp -mtune=generic -march=x86-64 -auxbase main -g -Wall -std=c++11 -version -o /tmp/ccnSmaZ0.s
 GNU C++11 (GCC) version 7.2.0 (x86_64-pc-linux-gnu)
 	compiled by GNU C version 7.2.0, GMP version 6.0.0, MPFR version 3.1.2, MPC version 1.0.2, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -25,17 +25,37 @@ GNU C++11 (GCC) version 7.2.0 (x86_64-pc-linux-gnu)
 	compiled by GNU C version 7.2.0, GMP version 6.0.0, MPFR version 3.1.2, MPC version 1.0.2, isl version none
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 Compiler executable checksum: d926a5fd199708005aec3c20f44dab6a
+In file included from main.cpp:3:0:
+main.h:27:62: error: declaration of ‘word_rec’ as array of references
+ void handle_word(char word[], word_record& word_rec[max_words], int& size);
+                                                              ^
+main.h:27:63: error: expected ‘)’ before ‘,’ token
+ void handle_word(char word[], word_record& word_rec[max_words], int& size);
+                                                               ^
+main.h:27:65: error: expected unqualified-id before ‘int’
+ void handle_word(char word[], word_record& word_rec[max_words], int& size);
+                                                                 ^~~
 main.cpp: In function ‘int main()’:
-main.cpp:86:9: warning: unused variable ‘wordNum’ [-Wunused-variable]
-     int wordNum = 0;
-         ^~~~~~~
-main.cpp: In function ‘void handle_word(char*, word_record*, int&)’:
-main.cpp:101:7: warning: unused variable ‘word_num’ [-Wunused-variable]
-   int word_num = 0;
-       ^~~~~~~~
-COLLECT_GCC_OPTIONS='-v' '-c' '-g' '-std=c++11' '-Wall' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- as -v --64 -o main.o /tmp/cc1eqaeE.s
-GNU assembler version 2.23.2 (x86_64-suse-linux) using BFD version (GNU Binutils; openSUSE 13.1) 2.23.2
-COMPILER_PATH=/usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/7.2.0/:/usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/7.2.0/:/usr/local/gcc-7.2.0/lib/gcc/x86_64-pc-linux-gnu/:/usr/local/gcc-7.2.0/lib64/gcc/x86_64-pc-linux-gnu/7.2.0/:/usr/local/gcc-7.2.0/lib64/gcc/x86_64-pc-linux-gnu/
-LIBRARY_PATH=/usr/local/gcc-7.2.0/lib64/gcc/x86_64-pc-linux-gnu/7.2.0/:/usr/local/gcc-7.2.0/lib64/gcc/x86_64-pc-linux-gnu/7.2.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/local/gcc-7.2.0/lib64/gcc/x86_64-pc-linux-gnu/7.2.0/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-c' '-g' '-std=c++11' '-Wall' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+main.cpp:85:34: error: no match for ‘operator[]’ (operand types are ‘word_record’ and ‘int’)
+     int wordLen = strlen(word_rec[i].word);
+                                  ^
+main.cpp:89:15: error: ‘word’ was not declared in this scope
+       cout << word[i].word[e];
+               ^~~~
+main.cpp:89:15: note: suggested alternative: ‘void’
+       cout << word[i].word[e];
+               ^~~~
+               void
+main.cpp: At global scope:
+main.cpp:99:37: error: expected identifier before ‘&’ token
+ void handle_word(char word[], struct& word_rec[], int& size) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
+                                     ^
+main.cpp:99:48: error: declaration of ‘word_rec’ as array of references
+ void handle_word(char word[], struct& word_rec[], int& size) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
+                                                ^
+main.cpp:99:49: error: expected ‘)’ before ‘,’ token
+ void handle_word(char word[], struct& word_rec[], int& size) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
+                                                 ^
+main.cpp:99:51: error: expected unqualified-id before ‘int’
+ void handle_word(char word[], struct& word_rec[], int& size) //i'm thinking this hsould be a struct funciton aka it returns the updated struct
+                                                   ^~~
