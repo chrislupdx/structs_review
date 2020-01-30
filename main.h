@@ -19,9 +19,9 @@ char contents[maxLen];
 
 struct word_record                                       //struct arr == kwindex
 {
-int charCount;
-int lines[100]; //for storing where we find the word
-char word[100]; //the word itself
+  int charCount;
+  int lines[100]; //for storing where we find the word
+  char word[100]; //the word itself
 };
 
-void handle_word(char word[], word_record& word_rec[max_words], int& size);
+void handle_word(char word[], word_record word_rec[], int& size);
